@@ -27,7 +27,7 @@ public class LoadingOverlayMixin {
 	@Mutable @Shadow @Final private Minecraft minecraft;	// Access the client
 	@Shadow private long fadeOutStart;				// Checks when to do what
 	
-	@Inject(method = "render", at = @At("HEAD"))
+	@Inject(method = "extractRenderState", at = @At("HEAD"))
 	public void render2(CallbackInfo ci) {
 		if(Configs.REMOVE_SPLASH_FADE) {
 			if (this.fadeOutStart > 1) {
@@ -43,7 +43,7 @@ public class LoadingOverlayMixin {
 		} else return value;
 	}
 
-	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 3)
+	@ModifyVariable(method = "extractRenderState", at = @At("STORE"), ordinal = 3)
 	private float o(float value) {
 		if(Configs.REMOVE_SPLASH_FADE) {
 			return 1.0f; // This parameter is used for the Mojang logo transparency
